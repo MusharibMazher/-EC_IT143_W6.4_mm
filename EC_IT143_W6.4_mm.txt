@@ -1,0 +1,33 @@
+SELECT ProductID, ReferenceOrderID from [Production].[TransactionHistory]
+WHERE TransactionType = 'W' ; (musharib mazhar)
+
+/*
+Missing Index Details from SQLQuery25.sql - 51-IS-CGWLP.AdventureWorks2022 (RCWILLEY\cgw (64))
+The Query Processor estimates that implementing the following index could improve the query cost by 90.3988%.
+*/
+
+
+USE [AdventureWorks2022]
+GO
+CREATE NONCLUSTERED INDEX [IT143_TH_Index, sysname,>]
+ON [Production].[TransactionHistory] ([TransactionType])
+INCLUDE ([ProductID],[ReferenceOrderID])
+GO
+
+-- ----------------------------------------------------------
+
+select productid, UnitPrice from [Sales].[SalesOrderDetail] 
+where unitprice > 425;
+
+/*
+Missing Index Details from SQLQuery24.sql - 51-IS-CGWLP.AdventureWorks2022 (RCWILLEY\cgw (79))
+The Query Processor estimates that implementing the following index could improve the query cost by 92.1603%.
+*/
+
+
+USE [AdventureWorks2022]
+GO
+CREATE NONCLUSTERED INDEX [IT143_sodetail_index, sysname,>]
+ON [Sales].[SalesOrderDetail] ([UnitPrice])
+INCLUDE ([ProductID])
+GO
